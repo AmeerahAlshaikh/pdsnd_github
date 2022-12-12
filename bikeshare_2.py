@@ -2,9 +2,13 @@ import time
 import pandas as pd
 import numpy as np
 
+#---------------------------------------------------------------------------------------------------------------------
+
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
+
+#---------------------------------------------------------------------------------------------------------------------
 
 def get_filters():
     """
@@ -22,7 +26,7 @@ def get_filters():
         city = input('Would you like to see data for which city? please enter your choice as: chicago, new york city or washington? ').lower()
         if city in ('chicago', 'new york city' , 'washington'):
             break
-        else: 
+        else:
             print('Sorry, invalid input. Try again please')
 
     # get user input for month (all, january, february, ... , june)
@@ -43,6 +47,7 @@ def get_filters():
     print('-'*40)
     return city, month, day
 
+#---------------------------------------------------------------------------------------------------------------------
 
 def load_data(city, month, day):
     """
@@ -55,7 +60,7 @@ def load_data(city, month, day):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
-    
+
     # load data file into a dataframe
     df = pd.read_csv(CITY_DATA[city])
 
@@ -65,7 +70,7 @@ def load_data(city, month, day):
     # extract month, day and hour of week from Start Time to create new columns
     df['month'] = df['Start Time'].dt.month
     df['day_of_week'] = df['Start Time'].dt.weekday_name
-    df['hour'] = df['Start Time'].dt.hour 
+    df['hour'] = df['Start Time'].dt.hour
 
     # filter by month if applicable
     if month != 'all':
@@ -84,6 +89,8 @@ def load_data(city, month, day):
 
     return df
 
+
+#---------------------------------------------------------------------------------------------------------------------
 
 def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
@@ -106,6 +113,8 @@ def time_stats(df):
     print('-'*40)
 
 
+#---------------------------------------------------------------------------------------------------------------------
+
 def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
 
@@ -125,6 +134,7 @@ def station_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+#---------------------------------------------------------------------------------------------------------------------
 
 def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
@@ -135,16 +145,17 @@ def trip_duration_stats(df):
     # display total travel time
     total_seconds = df['Trip Duration'].sum()
     print('The total travel time is: {} days'.format(total_seconds/86400))
-    
+
 
     # display mean travel time
     mean_seconds = df['Trip Duration'].mean()
     print('The avrage of travel time is: {} hours'.format(mean_seconds/60))
-    
+
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+#---------------------------------------------------------------------------------------------------------------------
 
 def user_stats(df):
     """Displays statistics on bikeshare users."""
@@ -163,14 +174,14 @@ def user_stats(df):
         print("\nSorry, no data available for this month.")
 
     # Display earliest, most recent, and most common year of birth
-    
+
     print('\nThe earlist year of birth is: ')
     try:
         earliset_birth = df['Birth Year'].min()
         print(earliset_birth)
     except KeyError:
        print("\nSorry, no data available for this month.")
-    
+
     print('\nThe most recent year of birth is: ')
     try:
         recent_birth = df['Birth Year'].max()
@@ -178,7 +189,7 @@ def user_stats(df):
     except KeyError:
         print("\nSorry, no data available for this month.")
 
-    print('\nThe most common year of birth is: ')    
+    print('\nThe most common year of birth is: ')
     try:
         common_birth = df['Birth Year'].mode()[0]
         print(common_birth)
@@ -188,6 +199,7 @@ def user_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+#---------------------------------------------------------------------------------------------------------------------
 
 def main():
     while True:
@@ -200,7 +212,7 @@ def main():
         user_stats(df)
 
         raw_data= input("would you like to view individual trip data? Type 'yes' or 'no'").lower()
-        
+
         if raw_data == 'yes':
             num = 0
             print("Type 'no' for stop")
@@ -212,6 +224,7 @@ def main():
         if restart.lower() != 'yes':
             break
 
+#---------------------------------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
 	main()
