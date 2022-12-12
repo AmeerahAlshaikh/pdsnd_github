@@ -10,14 +10,14 @@ This project is a Python code to import US bike share data and answer interestin
 
 ### Requirements
 To run this project you need:
-Python3, pandas and Numpy
-Text editor
-Terminal 
+- Python3, pandas and Numpy
+- Text editor
+- Terminal
 
 ### Files used
-chicago.csv
-new_york_city.csv
-washington.csv
+- chicago.csv
+- new_york_city.csv
+- washington.csv
 
 ### Credits
 https://www.udacity.com
